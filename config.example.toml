@@ -1,0 +1,4 @@
+# configuration du script
+
+user_token = "<votre token>"
+selfbot_prefix = "!"
