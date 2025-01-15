@@ -71,9 +71,4 @@ export class Self extends Client {
     async stop() {
         this.destroy();
     }
-
-    async restart() {
-        await this.stop();
-        await this.run();
-    }
 }

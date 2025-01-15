@@ -7,6 +7,7 @@ export const event: SelfEventType = {
     once: false,
     callback: (client: Self, message: Message) => {
         if (message.author.id !== client.user?.id) return;
+        console.log(message.content)
 
         const self_prefix = client.db.get("prefix") || client.config?.selfbot_prefix!;
         if (!message.content.startsWith(self_prefix)) return;
