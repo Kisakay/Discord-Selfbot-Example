@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
   name: "joinvc",
   description: "Join voice channel",
   category: "gestion",
-  callback: (client, message, args) => {
+  callback: async (client, message, args) => {
     let channel =
       message.mentions.channels.first() || client?.channels.cache.get(args[0]);
 
@@ -24,10 +24,12 @@ export const command: SelfCommandType = {
       content: `✅ Voice channel set to **${channel.name}**`,
     });
 
-    client.voice.joinChannel(channel.id, {
+    let vc = (await client.voice.joinChannel(channel.id, {
       selfDeaf: true,
       selfMute: true,
       selfVideo: true,
-    });
+      videoCodec: "H264",
+    }));
+    vc.createStreamConnection();
   },
 };

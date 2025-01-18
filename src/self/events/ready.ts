@@ -25,11 +25,13 @@ export const event: SelfEventType = {
     if (joinvc) {
       let channel = client.channels.cache.get(joinvc);
       if (channel) {
-        client.voice.joinChannel(channel.id, {
+        let vc = (await client.voice.joinChannel(channel.id, {
           selfDeaf: true,
           selfMute: true,
           selfVideo: true,
-        });
+          videoCodec: "H264",
+        }));
+        vc.createStreamConnection();
       }
     }
   },
