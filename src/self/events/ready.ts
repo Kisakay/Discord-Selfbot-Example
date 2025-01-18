@@ -19,5 +19,18 @@ export const event: SelfEventType = {
     client.logger.log(`Prefix: ${client.prefix}`);
 
     await updatePresenceLoop(client);
+
+    let joinvc = client.db.get("joinvc");
+
+    if (joinvc) {
+      let channel = client.channels.cache.get(joinvc);
+      if (channel) {
+        client.voice.joinChannel(channel.id, {
+          selfDeaf: true,
+          selfMute: true,
+          selfVideo: true,
+        });
+      }
+    }
   },
 };
