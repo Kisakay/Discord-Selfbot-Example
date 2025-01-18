@@ -6,12 +6,12 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "discord.js": "^14.17.3",
     "discord.js-selfbot-v13": "^3.4.6",
-    "ihorizon-tools": "^1.4.2",
+    "ihorizon-tools": "^1.4.3",
     "stegano.db": "^4.2.0"
   }
 }
