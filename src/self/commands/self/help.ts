@@ -1,7 +1,6 @@
 import type { Message } from "discord.js-selfbot-v13";
 import type { Self } from "../../self.ts";
 import type { SelfCommandType } from "../../../../types/self_commands";
-import { wait } from "ihorizon-tools";
 
 export const command: SelfCommandType = {
     name: 'help',

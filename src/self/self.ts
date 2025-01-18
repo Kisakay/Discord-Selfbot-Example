@@ -24,7 +24,6 @@ export class Self extends Client {
         this.prefix = this.db.get("prefix") || this.config.selfbot_prefix;
 
         this.run();
-        this.start();
     }
 
     async start() {
