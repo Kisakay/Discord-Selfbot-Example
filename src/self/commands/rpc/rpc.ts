@@ -9,7 +9,7 @@ export const command: SelfCommandType = {
     let option1 = args[0];
 
     if (!option1) {
-      return message.edit({
+      return client.send(message, {
         content: `Command malformed 😵\n${command_usage}`,
       });
     }
@@ -20,7 +20,7 @@ export const command: SelfCommandType = {
         let option3 = args.slice(2).join(" ");
 
         if (!option2 || !option3) {
-          return message.edit({
+          return client.send(message, {
             content: `Command malformed 😵\n${command_usage}`,
           });
         }
@@ -30,7 +30,7 @@ export const command: SelfCommandType = {
           rpc: option3,
         });
 
-        message.edit({
+        client.send(message, {
           content: `RPC set to **${option2}** with **${option3}**`,
         });
 
@@ -38,13 +38,13 @@ export const command: SelfCommandType = {
       case "reset":
         client.db.set("presence", {});
 
-        message.edit({
+        client.send(message, {
           content: `RPC reseted.`,
         });
 
         break;
       default:
-        return message.edit({
+        return client.send(message, {
           content: `Command malformed 😵\n${command_usage}`,
         });
     }

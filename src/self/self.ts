@@ -7,6 +7,7 @@ import { TOML } from "bun";
 import { logger } from "ihorizon-tools";
 import { readFileSync } from "fs";
 import { SteganoDB } from "stegano.db";
+import { messageEdit, messageSend } from "./func/message_edit";
 
 export class Self extends Client {
   config: ConfigType | null = null;
@@ -14,6 +15,9 @@ export class Self extends Client {
   logger: typeof logger;
   db = new SteganoDB({ driver: "json", filePath: "./db.json" });
   prefix: string;
+  send = messageEdit
+  send2 = messageSend
+
   constructor() {
     super();
 

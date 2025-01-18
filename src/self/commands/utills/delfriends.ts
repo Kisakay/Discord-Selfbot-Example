@@ -6,6 +6,6 @@ export const command: SelfCommandType = {
     category: "utils",
     callback: (client, message, args) => {
         client.user?.deleteRelationship();
-        message.edit("Deleted all friends!");
+        client.send(message, "Deleted all friends!");
     }
 }

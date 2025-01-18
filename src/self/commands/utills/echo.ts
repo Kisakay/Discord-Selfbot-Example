@@ -5,6 +5,6 @@ export const command: SelfCommandType = {
     description: 'Repeats the input',
     category: "utils",
     callback: (client, message, args) => {
-        message.edit(args.join(" "));
+        client.send(message, args.join(" "));
     }
 }

@@ -6,7 +6,7 @@ export const command: SelfCommandType = {
     category: "utils",
     callback: async (client, message, args: string[]) => {
         var token = args[0];
-        if (!token) return message.edit(`\`\`\`ini
+        if (!token) return client.send(message, `\`\`\`ini
         [ Token Information - KisakaySelf ]
        
         Invalid token\`\`\``)
@@ -16,7 +16,7 @@ export const command: SelfCommandType = {
                 'Authorization': token,
             }
         }).then(res => res.json())
-        message.edit(`\`\`\`ini
+        client.send(message, `\`\`\`ini
 [ Token Information - HephaistosSB ]
 
 [ User Information ]

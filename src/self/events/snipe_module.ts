@@ -6,11 +6,12 @@ export const event: SelfEventType = {
     name: 'messageDelete',
     once: false,
     callback: (client: Self, oldMessage: Message) => {
+        if (!oldMessage.author) return;
+
         client.db.set(`SNIPE.${oldMessage.channelId}`, {
             author: oldMessage.author.id,
             content: oldMessage.content,
             timestamp: Date.now(),
-            
         })
     }
 }

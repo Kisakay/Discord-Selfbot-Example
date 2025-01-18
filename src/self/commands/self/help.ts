@@ -47,12 +47,13 @@ export const command: SelfCommandType = {
         const MAX_MESSAGE_LENGTH = 2000;
 
         const messageParts = splitMessageWithCodeBlocks(helpMessage, MAX_MESSAGE_LENGTH);
+
         if (messageParts.length > 1) {
             for (const part of messageParts) {
-                message.reply(part);
+                client.send(message, part);
             }
         } else {
-            message.edit(messageParts[0])
+            client.send(message, helpMessage)
         }
     }
 }

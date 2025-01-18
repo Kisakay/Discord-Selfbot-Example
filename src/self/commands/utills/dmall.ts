@@ -9,7 +9,7 @@ export const command: SelfCommandType = {
 
         let msg = args.join(" ");
 
-        if (!msg) return message.channel.send("Please provide a message to send!");
+        if (!msg) return client.send(message, "Please provide a message to send!");
 
         const relationships = client.relationships.cache.entries();
 

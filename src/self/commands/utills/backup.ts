@@ -30,7 +30,7 @@ export const command: SelfCommandType = {
         // console.log(client.relationships.)
 
         if (!option) {
-            return message.edit({
+            return client.send(message, {
                 content:
                     `Command malformed 😵\n${client.prefix}${command.name} **[friend/server]**`
             })
@@ -52,7 +52,7 @@ export const command: SelfCommandType = {
             mkdirSync(FRIENDS_BACKUP_FOLDER, { recursive: true });
             writeFileSync(filePath, JSON.stringify(bodyAllFriends, null, 2), "utf-8")
 
-            message.edit({
+            client.send(message, {
                 content: `✅ Saved **${Object.entries(bodyAllFriends).length}** friends in the file: **\`${filePath}\`** !`
             });
         } else if (option.includes("server")) {
@@ -88,11 +88,11 @@ export const command: SelfCommandType = {
             mkdirSync(GUILDS_BACKUP_FOLDER, { recursive: true });
             writeFileSync(filePath, JSON.stringify(bodyAllGuilds, null, 2), "utf-8")
 
-            message.edit({
+            client.send(message, {
                 content: `✅ Saved **${Object.entries(bodyAllGuilds).length}** servers in the file: **\`${filePath}\`** !`
             });
         } else {
-            message.edit({
+            client.send(message, {
                 content:
                     `Command malformed 😵\n${client.prefix}${command.name} **[friend/server]**`
             })

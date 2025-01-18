@@ -9,11 +9,11 @@ export const command: SelfCommandType = {
         let snipeData = client.db.get(`SNIPE.${message.channelId}`);
 
         if (!snipeData) {
-            message.edit({ content: "Nothing to snipe here!" })
+            client.send(message, { content: "Nothing to snipe here!" })
             return;
         }
 
-        message.edit({
+        client.send(message, {
             content: `⭐ __**Snipe Message**__ \n**Author**: <@${snipeData.author}>\n**When**:${time(new Date(snipeData.timestamp), "R")}\n**Content**: ${(snipeData.content as string).substring(0, 1900)}`
         })
     }

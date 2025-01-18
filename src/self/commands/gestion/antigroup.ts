@@ -6,10 +6,10 @@ export const command: SelfCommandType = {
     category: "gestion",
     callback: (client, message, args) => {
         let states = client.db.get("antigroup");
-        
+
         client.db.set("antigroup", !states);
 
-        message.edit({
+        client.send(message, {
             content: `Antigroup is now ${!states ? "enable" : "disable"}`
         })
     }
