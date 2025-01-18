@@ -6,6 +6,7 @@ import { wait } from "ihorizon-tools";
 export const command: SelfCommandType = {
     name: 'dmall',
     description: 'Sending message to all users in your friend list and direct messages',
+    category: "utils",
     callback: async (client: Self, message: Message, args: string[]) => {
 
         let msg = args.join(" ");

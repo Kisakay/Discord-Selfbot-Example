@@ -5,6 +5,7 @@ import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 export const command: SelfCommandType = {
     name: 'setprefix',
     description: 'Defines a new prefix for the selfbot',
+    category: "utils",
     callback: (client: Self, message: Message, args: string[]) => {
         let newPrefix = args[0];
 

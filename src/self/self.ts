@@ -13,6 +13,7 @@ export class Self extends Client {
     commands: Map<string, SelfCommandType> = new Map();
     logger: typeof logger;
     db = new SteganoDB({ driver: "json", filePath: "./db.json" });
+    prefix: string;
 
     constructor() {
         super();
@@ -20,6 +21,7 @@ export class Self extends Client {
         this.config = (TOML.parse(readFileSync(process.cwd() + "/config.toml", "utf-8")) as ConfigType);
 
         this.logger = logger;
+        this.prefix = this.db.get("prefix") || this.config.selfbot_prefix;
 
         this.run();
         this.start();

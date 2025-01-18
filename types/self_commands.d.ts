@@ -4,6 +4,7 @@ export interface SelfCommandType {
 
     options?: Option[];
     callback: Function;
+    category: string;
 }
 
 export interface Option {
