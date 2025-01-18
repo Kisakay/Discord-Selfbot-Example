@@ -10,6 +10,7 @@ export const command: SelfCommandType = {
 
         if (!snipeData) {
             message.edit({ content: "Nothing to snipe here!" })
+            return;
         }
 
         message.edit({
