@@ -14,9 +14,8 @@ export class Self extends Client {
   commands: Map<string, SelfCommandType> = new Map();
   logger: typeof logger;
   db = new SteganoDB({ driver: "json", filePath: "./db.json" });
-  prefix: string;
-  send = messageEdit
-  send2 = messageSend
+  send = messageEdit;
+  send2 = messageSend;
 
   constructor() {
     super();
@@ -26,12 +25,15 @@ export class Self extends Client {
     ) as ConfigType;
 
     this.logger = logger;
-    this.prefix = this.db.get("prefix") || this.config.selfbot_prefix;
     this.run();
   }
 
   async start() {
     await this.login(this.config?.user_token);
+  }
+
+  prefix() {
+    return this.db.get("prefix") || this.config!.selfbot_prefix;
   }
 
   async loadEvents() {

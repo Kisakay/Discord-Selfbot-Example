@@ -10,7 +10,7 @@ export const command: SelfCommandType = {
 
     if (!id || Number.isNaN(Number(id))) {
       return client.send(message, {
-        content: `Command malformed 😵\n${client.prefix}${command.name} **[id]**`,
+        content: `Command malformed 😵\n${client.prefix()}${command.name} **[id]**`,
       });
     }
 
