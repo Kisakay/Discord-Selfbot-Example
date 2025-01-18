@@ -1,9 +1,12 @@
+import type { Message } from "discord.js-selfbot-v13";
+import type { Self } from "../src/self/self";
+
 export interface SelfCommandType {
     name: string;
     description: string;
 
     options?: Option[];
-    callback: Function;
+    async callback(client: Self, message: Message, args: string[]),
     category: string;
 }
 

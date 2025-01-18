@@ -1,5 +1,3 @@
-import type { Message } from "discord.js-selfbot-v13";
-import type { Self } from "../../self";
 import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 import { wait } from "ihorizon-tools";
 
@@ -7,7 +5,7 @@ export const command: SelfCommandType = {
     name: 'dmall',
     description: 'Sending message to all users in your friend list and direct messages',
     category: "utils",
-    callback: async (client: Self, message: Message, args: string[]) => {
+    callback: async (client, message, args) => {
 
         let msg = args.join(" ");
 

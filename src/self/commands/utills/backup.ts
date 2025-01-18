@@ -1,5 +1,3 @@
-import type { Message } from "discord.js-selfbot-v13";
-import type { Self } from "../../self";
 import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -26,7 +24,7 @@ export const command: SelfCommandType = {
     name: 'backup',
     description: 'Create a backup of your account',
     category: "utils",
-    callback: async (client: Self, message: Message, args: string[]) => {
+    callback: async (client, message, args) => {
         let option = args[0];
 
         // console.log(client.relationships.)

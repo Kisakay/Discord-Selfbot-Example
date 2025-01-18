@@ -1,12 +1,10 @@
-import type { Message } from "discord.js-selfbot-v13";
-import type { Self } from "../../self.ts";
 import type { SelfCommandType } from "../../../../types/self_commands";
 
 export const command: SelfCommandType = {
     name: 'help',
     description: 'See all commands',
     category: "bot",
-    callback: async (client: Self, message: Message, args: string[]) => {
+    callback: async (client, message, args: string[]) => {
 
         const commands = client.commands;
         let helpMessage = `= 📜 Help Message =\n`;

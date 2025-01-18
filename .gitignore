@@ -133,3 +133,4 @@ dist
 config.toml
 db.json
 bun.lockb
+backups

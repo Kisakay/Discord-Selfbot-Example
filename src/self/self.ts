@@ -9,67 +9,69 @@ import { readFileSync } from "fs";
 import { SteganoDB } from "stegano.db";
 
 export class Self extends Client {
-    config: ConfigType | null = null;
-    commands: Map<string, SelfCommandType> = new Map();
-    logger: typeof logger;
-    db = new SteganoDB({ driver: "json", filePath: "./db.json" });
-    prefix: string;
+  config: ConfigType | null = null;
+  commands: Map<string, SelfCommandType> = new Map();
+  logger: typeof logger;
+  db = new SteganoDB({ driver: "json", filePath: "./db.json" });
+  prefix: string;
+  constructor() {
+    super();
 
-    constructor() {
-        super();
+    this.config = TOML.parse(
+      readFileSync(process.cwd() + "/config.toml", "utf-8"),
+    ) as ConfigType;
 
-        this.config = (TOML.parse(readFileSync(process.cwd() + "/config.toml", "utf-8")) as ConfigType);
+    this.logger = logger;
+    this.prefix = this.db.get("prefix") || this.config.selfbot_prefix;
+    this.run();
+  }
 
-        this.logger = logger;
-        this.prefix = this.db.get("prefix") || this.config.selfbot_prefix;
+  async start() {
+    await this.login(this.config?.user_token);
+  }
 
-        this.run();
+  async loadEvents() {
+    const files = await readdir(join(__dirname, "events"));
+    let i = 0;
+    for (const file of files) {
+      const { event } = await import(`./events/${file}`);
+      if (event.once) {
+        this.once(event.name, event.callback.bind(null, this));
+        i++;
+      } else {
+        this.on(event.name, event.callback.bind(null, this));
+        i++;
+      }
     }
 
-    async start() {
-        await this.login(this.config?.user_token);
+    this.logger.log(`Loaded ${i} events`);
+  }
+
+  async loadCommands() {
+    const dir = await readdir(join(__dirname, "commands"));
+
+    for (const category of dir) {
+      const files = await readdir(join(__dirname, "commands", category));
+      for (const file of files) {
+        const { command } = await import(`./commands/${category}/${file}`);
+        this.commands.set(command.name, command);
+      }
     }
 
-    async loadEvents() {
-        const files = await readdir(join(__dirname, "events"));
-        let i = 0;
-        for (const file of files) {
-            const { event } = await import(`./events/${file}`);
-            if (event.once) {
-                this.once(event.name, event.callback.bind(null, this)); i++;
-            } else {
-                this.on(event.name, event.callback.bind(null, this)); i++;
-            }
-        }
+    this.logger.log(`Loaded ${this.commands.size} commands`);
+  }
 
-        this.logger.log(`Loaded ${i} events`);
-    }
+  async load() {
+    await this.loadEvents();
+    await this.loadCommands();
+  }
 
-    async loadCommands() {
-        const dir = await readdir(join(__dirname, "commands"));
+  async run() {
+    await this.load();
+    await this.start();
+  }
 
-        for (const category of dir) {
-            const files = await readdir(join(__dirname, "commands", category));
-            for (const file of files) {
-                const { command } = await import(`./commands/${category}/${file}`);
-                this.commands.set(command.name, command);
-            }
-        }
-
-        this.logger.log(`Loaded ${this.commands.size} commands`);
-    }
-
-    async load() {
-        await this.loadEvents();
-        await this.loadCommands();
-    }
-
-    async run() {
-        await this.load();
-        await this.start();
-    }
-
-    async stop() {
-        this.destroy();
-    }
+  async stop() {
+    this.destroy();
+  }
 }

@@ -1,12 +1,10 @@
-import type { Message } from "discord.js-selfbot-v13";
-import type { Self } from "../../self";
 import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {
     name: 'setprefix',
     description: 'Defines a new prefix for the selfbot',
     category: "utils",
-    callback: (client: Self, message: Message, args: string[]) => {
+    callback: (client, message, args) => {
         let newPrefix = args[0];
 
         if (!newPrefix) return message.reply("You need to provide a new prefix");
