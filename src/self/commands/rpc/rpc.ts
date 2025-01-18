@@ -2,7 +2,7 @@ import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {
   name: "rpc",
-  description: "A very customisable rpc on discord lmao",
+  description: "A very customisable RPC on discord lmao",
   category: "rpc",
   callback: async (client, message, args: string[]) => {
     let command_usage = `**\`${client.prefix}${command.name} [set/reset] [playing/streaming] [rpc_string]\`**`;

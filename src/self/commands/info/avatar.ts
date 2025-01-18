@@ -2,7 +2,7 @@ import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {
     name: 'avatar',
-    description: 'show the user avatar',
+    description: 'Shows the user avatar',
     category: "info",
     callback: async (client, message, args) => {
         let user = message.mentions.users.first() || client.users.cache.get(args[0]);

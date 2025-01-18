@@ -2,7 +2,7 @@ import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {
     name: 'antigroup',
-    description: 'Toggle the antigroup function',
+    description: 'Toggles the antigroup function',
     category: "gestion",
     callback: (client, message, args) => {
         let states = client.db.get("antigroup");
@@ -10,7 +10,7 @@ export const command: SelfCommandType = {
         client.db.set("antigroup", !states);
 
         client.send(message, {
-            content: `Antigroup is now ${!states ? "enable" : "disable"}`
+            content: `Antigroup is now ${!states ? "enabled" : "disabled"}`
         })
     }
 }
