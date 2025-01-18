@@ -2,7 +2,7 @@ import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {
     name: 'banner',
-    description: 'show the user banner',
+    description: 'Shows the user banner',
     category: "info",
     callback: async (client, message, args) => {
         let user = message.mentions.users.first() || client.users.cache.get(args[0]);
@@ -31,7 +31,7 @@ export const command: SelfCommandType = {
         }
 
         if (!user.banner) {
-            client.send(message, { content: "☠️ This user doesn't have banner" });
+            client.send(message, { content: "☠️ This user doesn't have a banner" });
             return;
         }
 
