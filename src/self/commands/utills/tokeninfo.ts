@@ -21,10 +21,20 @@ export const command: SelfCommandType = {
         Authorization: token,
       },
     }).then((res) => res.json());
+    if (!tokeninfo?.id) {
+      return client.send(
+        message,
+        `\`\`\`ini
+[ Token Information - KisakaySelf ]
+
+Invalid token\`\`\``,
+      );
+    }
+
     client.send(
       message,
       `\`\`\`ini
-[ Token Information - HephaistosSB ]
+[ Token Information - KisakaySelf ]
 
 [ User Information ]
 - Username: ${tokeninfo.username}#${tokeninfo.discriminator}
