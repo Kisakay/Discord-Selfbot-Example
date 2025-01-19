@@ -8,6 +8,7 @@ import { logger } from "ihorizon-tools";
 import { readFileSync } from "fs";
 import { SteganoDB } from "stegano.db";
 import { messageEdit, messageSend } from "./func/message_edit";
+import { createBroadcast } from "./func/broadcast_message";
 
 export class Self extends Client {
   config: ConfigType | null = null;
@@ -32,6 +33,27 @@ export class Self extends Client {
 
   async start() {
     await this.login(this.config?.user_token);
+  }
+
+  broadcast(msg: string) {
+    let broadcast = this.db.get("broadcast");
+    let broadcastChannel = this.channels.cache.get(broadcast);
+
+    if (
+      !broadcast ||
+      !broadcastChannel ||
+      broadcastChannel.type !== "GROUP_DM"
+    ) {
+      createBroadcast(this);
+    }
+
+    this.channels.fetch(this.db.get("broadcast")).then((channel) => {
+      if (channel?.type === "GROUP_DM") {
+        channel.send(msg).then((msg) => {
+          msg.markUnread();
+        });
+      }
+    });
   }
 
   prefix() {
