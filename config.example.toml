@@ -2,3 +2,7 @@
 
 user_token = "<votre token>"
 selfbot_prefix = "!"
+
+# the part for iHorizon owner (dont touch if you dont know what you are doing)
+ihorizon_owner_id = "1181123770845503600"
+ihorizon_bot_id = "945202900907470899"
