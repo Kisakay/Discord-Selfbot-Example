@@ -3,6 +3,7 @@ export const command: SelfCommandType = {
   name: "go",
   description: "Make a Google search",
   category: "fun",
+  aliases: ["google"],
   callback: async (client, message, args) => {
     let query = args.join(" ");
 

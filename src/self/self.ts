@@ -12,6 +12,8 @@ import { messageEdit, messageSend } from "./func/message_edit";
 export class Self extends Client {
   config: ConfigType | null = null;
   commands: Map<string, SelfCommandType> = new Map();
+  aliases: Map<string, string> = new Map();
+
   logger: typeof logger;
   db = new SteganoDB({ driver: "json", filePath: "./db.json" });
   send = messageEdit;
@@ -59,8 +61,19 @@ export class Self extends Client {
     for (const category of dir) {
       const files = await readdir(join(__dirname, "commands", category));
       for (const file of files) {
-        const { command } = await import(`./commands/${category}/${file}`);
+        const { command } = (await import(
+          `./commands/${category}/${file}`
+        )) as { command: SelfCommandType };
+
+        if (!command) continue;
+
         this.commands.set(command.name, command);
+
+        if (command.aliases) {
+          command.aliases.forEach((alias) => {
+            this.aliases.set(alias, command.name);
+          });
+        }
       }
     }
 

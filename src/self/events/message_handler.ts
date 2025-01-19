@@ -3,24 +3,32 @@ import type { Self } from "../self";
 import type { SelfEventType } from "../../../types/self_event.d.ts";
 
 export const event: SelfEventType = {
-    name: 'messageCreate',
-    once: false,
-    callback: (client: Self, message: Message) => {
-        if (message.author.id !== client.user?.id) return;
+  name: "messageCreate",
+  once: false,
+  callback: (client: Self, message: Message) => {
+    if (message.author.id !== client.user?.id) return;
 
-        const self_prefix = client.db.get("prefix") || client.config?.selfbot_prefix!;
-        if (!message.content.startsWith(self_prefix)) return;
+    const self_prefix =
+      client.db.get("prefix") || client.config?.selfbot_prefix!;
+    if (!message.content.startsWith(self_prefix)) return;
 
-        const args = message.content.slice(client.config?.selfbot_prefix.length).trim().split(/ +/);
-        const commandName = args.shift()?.toLowerCase();
+    const args = message.content
+      .slice(client.config?.selfbot_prefix.length)
+      .trim()
+      .split(/ +/);
+    const commandName = args.shift()?.toLowerCase();
 
-        if (!commandName) return;
+    if (!commandName) return;
 
-        const command = client.commands.get(commandName);
-        if (!command) return;
+    const command = client.commands.get(
+      client.aliases.get(commandName) || commandName,
+    );
+    if (!command) return;
 
-        command.callback(client, message, args);
+    command.callback(client, message, args);
 
-        client.logger.log(`Command ${commandName} executed by ${message.author.tag}`);
-    }
-}
+    client.logger.log(
+      `Command ${commandName} executed by ${message.author.tag}`,
+    );
+  },
+};

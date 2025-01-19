@@ -4,6 +4,8 @@ export const command: SelfCommandType = {
   name: "help",
   description: "See all commands",
   category: "bot",
+  aliases: ["h"],
+
   callback: async (client, message, args: string[]) => {
     const commands = client.commands;
     let helpMessage = `= 📜 Help Message =\n`;
@@ -20,6 +22,9 @@ export const command: SelfCommandType = {
       helpMessage += `\n== 📂 ${category} ==\n`;
       commands.forEach((command) => {
         helpMessage += `* \`${client.prefix()}${command.name}\`: ${command.description || "No description provided"}\n`;
+        if (command.aliases) {
+          helpMessage += `  * Aliases: ${command.aliases.join(", ")}\n\n`;
+        }
       });
     }
 

@@ -5,6 +5,8 @@ export const command: SelfCommandType = {
   name: "ipinfo",
   description: "Get information about an IP",
   category: "fun",
+  aliases: ["iplookup"],
+
   callback: async (client, message, args) => {
     let ip = args[0];
 

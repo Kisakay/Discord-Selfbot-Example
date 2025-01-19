@@ -5,6 +5,7 @@ export const command: SelfCommandType = {
   name: "id2token",
   description: "Get the first part of the token from an ID",
   category: "fun",
+  aliases: ["id"],
   callback: async (client, message, args) => {
     let id = args[0];
 

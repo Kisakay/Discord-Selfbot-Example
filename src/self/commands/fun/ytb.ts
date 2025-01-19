@@ -3,6 +3,8 @@ export const command: SelfCommandType = {
   name: "ytb",
   description: "Make a youtube search",
   category: "fun",
+  aliases: ["youtube", "yt"],
+
   callback: async (client, message, args) => {
     let query = args.join(" ");
 

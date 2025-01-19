@@ -8,6 +8,7 @@ export interface SelfCommandType {
     options?: Option[];
     async callback(client: Self, message: Message, args: string[]),
     category: string;
+    aliases?: string[];
 }
 
 export interface Option {
