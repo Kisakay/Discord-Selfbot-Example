@@ -5,7 +5,7 @@ import { join } from "path";
 import type { SelfCommandType } from "../../types/self_commands";
 import { TOML } from "bun";
 import { logger } from "ihorizon-tools";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { SteganoDB } from "stegano.db";
 import { messageEdit, messageSend } from "./func/message_edit";
 import { createBroadcast } from "./func/broadcast_message";
@@ -22,6 +22,13 @@ export class Self extends Client {
 
   constructor() {
     super();
+    let path = process.cwd() + "/config.toml";
+
+    if (!existsSync(path)) {
+      logger.err("Config file not found.");
+      logger.err("Please create a config.toml file in the root directory.");
+      process.exit(1);
+    }
 
     this.config = TOML.parse(
       readFileSync(process.cwd() + "/config.toml", "utf-8"),

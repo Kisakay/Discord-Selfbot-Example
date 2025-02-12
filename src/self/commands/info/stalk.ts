@@ -17,7 +17,7 @@ export const command: SelfCommandType = {
       }
     }
 
-    if (!user) {
+    if (!user || !user === null) {
       client.send(
         message,
         "> ❌ **You need to mention a user or provide an ID**",
