@@ -1,5 +1,5 @@
 import { sleep } from "bun";
-import type { Message, MessageEditOptions, ReplyMessageOptions } from "discord.js-selfbot-v13";
+import type { Channel, DMChannel, GroupDMChannel, Message, MessageEditOptions, NewsChannel, PartialDMChannel, ReplyMessageOptions, StageChannel, TextChannel, ThreadChannel, VoiceChannel } from "discord.js-selfbot-v13";
 
 let max = 15_000;
 
@@ -17,9 +17,9 @@ export async function messageEdit(message: Message, body: string | MessageEditOp
     }
 }
 
-export async function messageSend(message: Message, body: string | ReplyMessageOptions, timeout?: number): Promise<Message | undefined> {
+export async function messageSend(channel: DMChannel | PartialDMChannel | GroupDMChannel | NewsChannel | StageChannel | TextChannel | ThreadChannel | VoiceChannel, body: string | ReplyMessageOptions, timeout?: number): Promise<Message | undefined> {
     try {
-        const sentMessage = await message.reply(body);
+        const sentMessage = await channel.send(body);
 
         setTimeout(() => {
             if (sentMessage.deletable) sentMessage.delete().catch(() => { });
