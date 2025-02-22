@@ -21,7 +21,9 @@ export class Self extends Client {
   send2 = messageSend;
 
   constructor() {
-    super();
+    super({
+      TOTPKey: process.env.TOTPKEY?.split(" ").join("").replace(/\s+/g, "").toUpperCase() || "",
+    });
     let path = process.cwd() + "/config.toml";
 
     if (!existsSync(path)) {
@@ -38,11 +40,32 @@ export class Self extends Client {
     this.run();
   }
 
-  async start() {
-    await this.login(this.config?.user_token);
+  private async start() {
+    await this.login(this.config?.user_token).catch((err) => {
+      console.clear();
+      this.logger.err(err);
+      this.logger.legacy(`
+INVALID TOKEN
+Please check your token in the config.toml file.
+
+To get discord account token:
+
+1- Open Discord in your browser. (login if you are not)
+2- Press F12 to open Developer Tools.
+3- Go to the console tab.
+4- Type "allow pasting" and press enter.
+5- Paste this code and press enter:
+`.red
+        +
+        `(webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=>m?.exports?.default?.getToken!==void 0).exports.default.getToken()`.gray
+        +
+        `  
+6- You will see your token in the console.
+7- Copy and paste it in the config.toml file.`.red);
+    })
   }
 
-  broadcast(msg: string) {
+  public broadcast(msg: string) {
     let broadcast = this.db.get("broadcast");
     let broadcastChannel = this.channels.cache.get(broadcast);
 
@@ -63,11 +86,11 @@ export class Self extends Client {
     });
   }
 
-  prefix() {
+  public prefix() {
     return this.db.get("prefix") || this.config!.selfbot_prefix;
   }
 
-  async loadEvents() {
+  private async loadEvents() {
     const files = await readdir(join(__dirname, "events"));
     let i = 0;
     for (const file of files) {
@@ -84,7 +107,7 @@ export class Self extends Client {
     this.logger.log(`Loaded ${i} events`);
   }
 
-  async loadCommands() {
+  private async loadCommands() {
     const dir = await readdir(join(__dirname, "commands"));
 
     for (const category of dir) {
@@ -109,17 +132,30 @@ export class Self extends Client {
     this.logger.log(`Loaded ${this.commands.size} commands`);
   }
 
-  async load() {
-    await this.loadEvents();
-    await this.loadCommands();
+  private async loadWsEvents() {
+    const files = await readdir(join(__dirname, "ws_events"));
+    let i = 0;
+    for (const file of files) {
+      const { event } = await import(`./ws_events/${file}`);
+      this.ws.on(event.name, event.callback.bind(null, this));
+      i++;
+    }
+
+    this.logger.log(`Loaded ${i} ws events`);
   }
 
-  async run() {
+  private async load() {
+    await this.loadEvents();
+    await this.loadCommands();
+    await this.loadWsEvents();
+  }
+
+  private async run() {
     await this.load();
     await this.start();
   }
 
-  async stop() {
+  public async stop() {
     this.destroy();
   }
 }

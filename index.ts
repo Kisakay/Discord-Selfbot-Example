@@ -1,4 +1,7 @@
 import { Self } from "./src/self/self";
+import { configDotenv } from "dotenv";
+
+configDotenv()
 
 const client = new Self();
 
