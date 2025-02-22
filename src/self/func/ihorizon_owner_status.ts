@@ -5,34 +5,44 @@ import type { Self } from "../self";
 async function updatePresenceLoop(client: Self) {
   if (client.user?.id !== client.config?.ihorizon_owner_id) return;
 
-  let info = await axios.get("https://gateway.ihorizon.me/api/ihorizon/v1/bot");
-  let array = [
-    `iHorizon's Servers: ${info.data.info.servers}`,
-    `Members: ${info.data.info.members}`,
-    `discord.gg/ihorizon`,
-    `bot with ${info.data.content.commands} commands => discord.gg/ihorizon`,
-    `iHorizon is on ${info.data.info.shards} shard(s) !`,
-    `Kisakay :p`,
-  ];
-
   const updatePresence = async () => {
     try {
-      info = await axios.get("https://gateway.ihorizon.me/api/ihorizon/v1/bot");
+      let info = await axios.get("https://gateway.ihorizon.me/api/ihorizon/v1/bot");
 
-      array = [
-        `iHorizon's Servers: ${info.data.info.servers}`,
-        `Members: ${info.data.info.members}`,
-        `discord.gg/ihorizon`,
-        `bot with ${info.data.content.commands} commands => discord.gg/ihorizon`,
-        `iHorizon is on ${info.data.info.shards} shard(s) !`,
-        `Kisakay :p`,
+      let array = [
+        {
+          emoji: "⚡",
+          state: `iHorizon's Servers: ${info.data.info.servers}`,
+        },
+        {
+          emoji: "👥",
+          state: `Members: ${info.data.info.members}`,
+        },
+        {
+          emoji: "📌",
+          state: `discord.gg/ihorizon`,
+        },
+        {
+          emoji: "✨",
+          state: `bot with ${info.data.content.commands} commands => discord.gg/ihorizon`,
+        },
+        {
+          emoji: "🤖",
+          state: `iHorizon is on ${info.data.info.shards} shard(s) !`,
+        },
+        {
+          emoji: "👧",
+          state: `Kisakay :p`,
+        },
       ];
 
-      const randomText = array[Math.floor(Math.random() * array.length)];
+      const randomObject = array[Math.floor(Math.random() * array.length)];
 
       client.user?.setPresence({
         activities: [
-          new CustomStatus(client).setEmoji("⚡").setState(randomText),
+          new CustomStatus(client)
+            .setEmoji(randomObject.emoji)
+            .setState(randomObject.state),
         ],
       });
     } catch (error) {
