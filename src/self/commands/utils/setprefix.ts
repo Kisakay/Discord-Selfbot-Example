@@ -13,7 +13,7 @@ export const command: SelfCommandType = {
       return client.send(message, "You need to provide a new prefix");
 
     // if the new prefix is the same as the current prefix
-    if (newPrefix === client.config?.selfbot_prefix)
+    if (newPrefix === client.prefix())
       return client.send(
         message,
         "The new prefix is the same as the current prefix",
