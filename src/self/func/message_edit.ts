@@ -1,5 +1,5 @@
 import { sleep } from "bun";
-import type { Channel, DMChannel, GroupDMChannel, Message, MessageEditOptions, NewsChannel, PartialDMChannel, ReplyMessageOptions, StageChannel, TextChannel, ThreadChannel, VoiceChannel } from "discord.js-selfbot-v13";
+import type { Channel, DMChannel, GroupDMChannel, Message, MessageEditOptions, NewsChannel, PartialDMChannel, ReplyMessageOptions, StageChannel, TextChannel, ThreadChannel, VoiceChannel } from "discord.js-selfbot-v13-kisakay-patch";
 
 let max = 15_000;
 

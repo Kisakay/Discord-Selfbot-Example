@@ -1,6 +1,6 @@
 import { axios } from "ihorizon-tools";
 import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
-import { MessageAttachment } from "discord.js-selfbot-v13";
+import { MessageAttachment } from "discord.js-selfbot-v13-kisakay-patch";
 
 export const command: SelfCommandType = {
   name: "ass",

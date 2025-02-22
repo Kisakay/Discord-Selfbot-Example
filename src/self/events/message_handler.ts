@@ -1,4 +1,4 @@
-import type { Message } from "discord.js-selfbot-v13";
+import type { Message } from "discord.js-selfbot-v13-kisakay-patch";
 import type { Self } from "../self";
 import type { SelfEventType } from "../../../types/self_event.d.ts";
 

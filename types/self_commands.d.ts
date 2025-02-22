@@ -1,4 +1,4 @@
-import type { Message } from "discord.js-selfbot-v13";
+import type { Message } from "discord.js-selfbot-v13-kisakay-patch";
 import type { Self } from "../src/self/self";
 
 export interface SelfCommandType {

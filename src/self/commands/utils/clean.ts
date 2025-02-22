@@ -11,7 +11,7 @@ import type {
   Collection,
   Snowflake,
   Message
-} from "discord.js-selfbot-v13";
+} from "discord.js-selfbot-v13-kisakay-patch";
 import type { SelfCommandType } from "../../../../types/self_commands";
 import { logger } from "ihorizon-tools";
 

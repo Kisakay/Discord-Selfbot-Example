@@ -1,4 +1,4 @@
-import { Channel } from "discord.js-selfbot-v13";
+import { Channel } from "discord.js-selfbot-v13-kisakay-patch";
 import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
 
 export const command: SelfCommandType = {

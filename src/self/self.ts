@@ -1,4 +1,4 @@
-import { Client } from "discord.js-selfbot-v13";
+import { Client } from "discord.js-selfbot-v13-kisakay-patch";
 import type { ConfigType } from "../../types/config";
 import { readdir } from "fs/promises";
 import { join } from "path";

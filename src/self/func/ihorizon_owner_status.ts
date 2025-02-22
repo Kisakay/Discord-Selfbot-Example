@@ -1,4 +1,4 @@
-import { CustomStatus } from "discord.js-selfbot-v13";
+import { CustomStatus } from "discord.js-selfbot-v13-kisakay-patch";
 import { axios } from "ihorizon-tools";
 import type { Self } from "../self";
 
