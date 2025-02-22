@@ -10,6 +10,8 @@ export const command: SelfCommandType = {
     const commands = client.commands;
     let helpMessage = `= 📜 Help Message =\n`;
 
+    let option = args[0];
+
     const categories: Record<string, SelfCommandType[]> = {};
 
     commands.forEach((command) => {
@@ -18,17 +20,39 @@ export const command: SelfCommandType = {
       categories[category].push(command);
     });
 
-    for (const [category, commands] of Object.entries(categories)) {
-      helpMessage += `\n== 📂 ${category} ==\n`;
-      commands.forEach((command) => {
+    if (option === "all") {
+      for (const [category, commands] of Object.entries(categories)) {
+        helpMessage += `\n== 📂 ${category} ==\n`;
+        commands.forEach((command) => {
+          helpMessage += `* \`${client.prefix()}${command.name}\`: ${command.description || "No description provided"}\n`;
+          if (command.aliases) {
+            helpMessage += `  * Aliases: ${command.aliases.join(", ")}\n\n`;
+          }
+        });
+      }
+
+      helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
+    } else if (categories[option]) {
+      helpMessage += `\n== 📂 ${option} ==\n`;
+      categories[option].forEach((command) => {
         helpMessage += `* \`${client.prefix()}${command.name}\`: ${command.description || "No description provided"}\n`;
         if (command.aliases) {
           helpMessage += `  * Aliases: ${command.aliases.join(", ")}\n\n`;
         }
       });
-    }
 
-    helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
+      helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
+    } else {
+      helpMessage += `* \`${client.prefix()}help all\`: See all commands\n`;
+      helpMessage += `* \`${client.prefix()}help <category>\`: See all commands in a category\n`;
+      helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
+
+      helpMessage += `\`\`\`asciidoc\n== 📂 Categories ==\n`
+      for (const category of Object.keys(categories)) {
+        helpMessage += `* ${category} (${categories[category].length} commands)\n`;
+      }
+      helpMessage += `\`\`\``;
+    }
 
     const splitMessageWithCodeBlocks = (message: string, maxLength: number) => {
       const messages = [];
