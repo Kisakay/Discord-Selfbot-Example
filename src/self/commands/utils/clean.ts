@@ -24,9 +24,11 @@ import { logger } from "ihorizon-tools";
 */
 async function deleteMessages(channel: DMChannel | PartialDMChannel | GroupDMChannel | NewsChannel | StageChannel | TextChannel | ThreadChannel | VoiceChannel) {
   let fetched: Collection<Snowflake, Message>;
+  let messagesToDelete: Collection<string, Message<boolean>>;
+
   do {
     fetched = await channel.messages.fetch({ limit: 100 });
-    const messagesToDelete = fetched.filter(m =>
+    messagesToDelete = fetched.filter(m =>
       (m.author.id === channel.client.user!.id)
       &&
       (!m.system)
@@ -43,7 +45,7 @@ async function deleteMessages(channel: DMChannel | PartialDMChannel | GroupDMCha
         .catch(e => console.error('Error deleting message', e.message));
     }
   }
-  while (fetched.size >= 2);
+  while (messagesToDelete.size >= 1);
 }
 
 export const command: SelfCommandType = {
