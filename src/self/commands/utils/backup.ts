@@ -1,4 +1,4 @@
-import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
+import type { SelfCommandType } from "../../../../types/self_commands";
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";

@@ -1,4 +1,4 @@
-import type { SelfCommandType } from "../../../../types/self_commands.d.ts";
+import type { SelfCommandType } from "../../../../types/self_commands";
 
 export const command: SelfCommandType = {
   name: "top",
