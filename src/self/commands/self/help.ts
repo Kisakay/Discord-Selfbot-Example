@@ -11,6 +11,7 @@ export const command: SelfCommandType = {
     let helpMessage = `= 📜 Help Message =\n`;
 
     let option = args[0];
+    let prefix = await client.prefix();
 
     const categories: Record<string, SelfCommandType[]> = {};
 
@@ -24,7 +25,7 @@ export const command: SelfCommandType = {
       for (const [category, commands] of Object.entries(categories)) {
         helpMessage += `\n== 📂 ${category} ==\n`;
         commands.forEach(async (command) => {
-          helpMessage += `* \`${await client.prefix()}${command.name}\`: ${command.description || "No description provided"}\n`;
+          helpMessage += `* \`${prefix}${command.name}\`: ${command.description || "No description provided"}\n`;
           if (command.aliases) {
             helpMessage += `  * Aliases: ${command.aliases.join(", ")}\n\n`;
           }
@@ -35,7 +36,7 @@ export const command: SelfCommandType = {
     } else if (categories[option]) {
       helpMessage += `\n== 📂 ${option} ==\n`;
       categories[option].forEach(async (command) => {
-        helpMessage += `* \`${await client.prefix()}${command.name}\`: ${command.description || "No description provided"}\n`;
+        helpMessage += `* \`${prefix}${command.name}\`: ${command.description || "No description provided"}\n`;
         if (command.aliases) {
           helpMessage += `  * Aliases: ${command.aliases.join(", ")}\n\n`;
         }
@@ -43,8 +44,8 @@ export const command: SelfCommandType = {
 
       helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
     } else {
-      helpMessage += `* \`${await client.prefix()}help all\`: See all commands\n`;
-      helpMessage += `* \`${await client.prefix()}help <category>\`: See all commands in a category\n`;
+      helpMessage += `* \`${prefix}help all\`: See all commands\n`;
+      helpMessage += `* \`${prefix}help <category>\`: See all commands in a category\n`;
       helpMessage = `\`\`\`asciidoc\n${helpMessage}\n\`\`\``;
 
       helpMessage += `\`\`\`asciidoc\n== 📂 Categories ==\n`
