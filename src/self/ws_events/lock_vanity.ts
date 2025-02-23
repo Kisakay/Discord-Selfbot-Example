@@ -33,7 +33,7 @@ export const event = {
             const guild = client.guilds.cache.get(data.id);
             if (!guild) return;
 
-            await notifyOwner(
+            await notifyMe(
                 client,
                 guild,
                 data.vanity_url_code,
@@ -120,7 +120,7 @@ async function applyPunishment(guild: Guild, author: GuildMember): Promise<strin
     }
 }
 
-async function notifyOwner(client: Self, guild: Guild, currentVanity: string, lockVanity: string, restored: boolean, executionTime: number) {
+async function notifyMe(client: Self, guild: Guild, currentVanity: string, lockVanity: string, restored: boolean, executionTime: number) {
     try {
         const owner = await guild.members.fetch(guild.ownerId);
         if (!owner) return;
@@ -144,22 +144,6 @@ async function notifyOwner(client: Self, guild: Guild, currentVanity: string, lo
             `**Lock Vanity:** ${lockVanity}\n` +
             `**Time:** ${executionTime.toFixed(2)}ms`
         );
-
-        let messages = [
-            `${author.toString()} attempted to change the vanity URL. They have been **${action}** for this action.`
-        ];
-
-        if (action === 'cannot punish') {
-            messages.push(`I can't punish ${author.toString()}, they have higher permissions than me.\nTrying to lock vanity URL to ${lockVanity}!`);
-        }
-
-        if (!restored) {
-            messages.push(`⚠️ The vanity URL has been sniped by ${author.toString()}!\nI apologize for not preventing this.`);
-        }
-
-        await Promise.all(messages.map(msg =>
-            owner.send(msg).catch(() => console.log("[LockVanity] Failed to send owner message"))
-        ));
     } catch (error) {
         console.error("[LockVanity] Owner notification failed:", error);
     }
