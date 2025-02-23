@@ -23,7 +23,7 @@ export async function vanity_defender(client: Self) {
                 if (ticketResponse.code === 60003) {
                     const { otp } = await TOTP.generate(client.options.TOTPKey);
 
-                    const mfaResponse = await (client as any).api.mfa.finish.post({
+                    const getMfa = await (client as any).api.mfa.finish.post({
                         data: {
                             ticket: ticketResponse.mfa.ticket,
                             data: otp,
@@ -31,9 +31,9 @@ export async function vanity_defender(client: Self) {
                         },
                     })
 
-                    client.mfaToken = mfaResponse.token;
+                    client.mfaToken = getMfa.token;
 
-                    logger.log(`[VanityDefender] MFA Token refreshed. (${(mfaResponse.token as string).substring(0, 20)}-------------XXXX)`.green);
+                    logger.log(`[VanityDefender] MFA Token refreshed. (${(getMfa.token as string).substring(0, 20)}-------------XXXX)`.green);
                 } else {
                     console.log("Failed to get ticket:", ticketResponse);
                 }
