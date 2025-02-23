@@ -5,8 +5,8 @@ export const command: SelfCommandType = {
   name: "whopingme",
   description: "Get the member who pinged you",
   category: "utils",
-  callback: (client, message, args) => {
-    let snipeData = client.db.get(`GHOST_PING.${message.channelId}`);
+  async callback(client, message, args) {
+    let snipeData = await client.db.get(`GHOST_PING.${message.channelId}`);
 
     if (!snipeData) {
       client.send(message, { content: "Nothing to snipe here!" });

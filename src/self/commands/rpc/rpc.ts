@@ -25,7 +25,7 @@ export const command: SelfCommandType = {
           });
         }
 
-        client.db.set("presence", {
+        await client.db.set("presence", {
           type: option2,
           rpc: option3,
         });
@@ -36,7 +36,7 @@ export const command: SelfCommandType = {
 
         break;
       case "reset":
-        client.db.set("presence", {});
+        await client.db.set("presence", {});
 
         client.send(message, {
           content: `RPC reseted.`,

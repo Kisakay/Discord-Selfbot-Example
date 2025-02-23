@@ -12,6 +12,7 @@
     "discord.js-selfbot-v13-kisakay-patch": "^3.6.0",
     "dotenv": "^16.4.7",
     "ihorizon-tools": "^1.4.3",
-    "stegano.db": "^4.2.0"
+    "quick.db": "^9.1.7",
+    "write-file-atomic": "^6.0.0"
   }
 }

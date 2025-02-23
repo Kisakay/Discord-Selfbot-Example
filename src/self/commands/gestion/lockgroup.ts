@@ -6,10 +6,10 @@ export const command: SelfCommandType = {
   description: "Lock the group to prevent users from joining or leaving",
   category: "gestion",
   aliases: ["lg"],
-  callback: async (client, message, args) => {
-    let states = client.db.get("lockgroup");
+  async callback(client, message, args) {
+    let states = await client.db.get("lockgroup");
 
-    client.db.set("lockgroup", !states);
+    await client.db.set("lockgroup", !states);
 
     client.send(message, {
       content: `Lockgroup is now ${!states ? "enabled" : "disabled"}`,

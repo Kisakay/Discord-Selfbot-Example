@@ -7,7 +7,7 @@ export const command: SelfCommandType = {
   category: "fun",
   aliases: ["iplookup"],
 
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let ip = args[0];
 
     if (!ip) {

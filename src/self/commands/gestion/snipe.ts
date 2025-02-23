@@ -5,8 +5,8 @@ export const command: SelfCommandType = {
     name: 'snipe',
     description: 'Get the latest message deleted in the channel',
     category: "gestion",
-    callback: (client, message, args) => {
-        let snipeData = client.db.get(`SNIPE.${message.channelId}`);
+    async callback(client, message, args) {
+        let snipeData = await client.db.get(`SNIPE.${message.channelId}`);
 
         if (!snipeData) {
             client.send(message, { content: "Nothing to snipe here!" })

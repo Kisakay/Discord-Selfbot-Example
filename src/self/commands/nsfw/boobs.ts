@@ -6,7 +6,7 @@ export const command: SelfCommandType = {
   name: "boobs",
   description: "Show a boobs image",
   category: "nsfw",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     try {
       const apiResponse = await axios.get(
         "https://nekobot.xyz/api/image?type=boobs",

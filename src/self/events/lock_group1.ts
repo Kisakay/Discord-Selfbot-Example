@@ -12,8 +12,8 @@ export const processingUsers = new Set<string>();
 export const event: SelfEventType = {
   name: "channelRecipientAdd",
   once: false,
-  callback: (client: Self, channel: GroupDMChannel, user: User) => {
-    const state = client.db.get("lockgroup");
+  async callback(client: Self, channel: GroupDMChannel, user: User) {
+    const state = await client.db.get("lockgroup");
 
     if (
       channel.type === "GROUP_DM" &&

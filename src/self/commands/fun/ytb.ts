@@ -5,7 +5,7 @@ export const command: SelfCommandType = {
   category: "fun",
   aliases: ["youtube", "yt"],
 
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let query = args.join(" ");
 
     client.send(message, {

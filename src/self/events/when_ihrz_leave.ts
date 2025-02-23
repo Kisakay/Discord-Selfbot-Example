@@ -5,9 +5,9 @@ import type { SelfEventType } from "../../../types/self_event.d.ts";
 export const event: SelfEventType = {
   name: "guildMemberRemove",
   once: false,
-  callback: (client: Self, member: GuildMember) => {
+  async callback(client: Self, member: GuildMember) {
     if (client.user!.id === client.config?.ihorizon_owner_id) {
-      let state = client.db.get("notihrz");
+      let state = await client.db.get("notihrz");
 
       let iHorizon_was_in_server =
         member.user.id === client.config.ihorizon_bot_id;

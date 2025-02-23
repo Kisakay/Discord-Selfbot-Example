@@ -6,14 +6,14 @@ export const command: SelfCommandType = {
   category: "utils",
   aliases: ["prefix"],
 
-  callback: (client, message, args) => {
+  async callback(client, message, args) {
     let newPrefix = args[0];
 
     if (!newPrefix)
       return client.send(message, "You need to provide a new prefix");
 
     // if the new prefix is the same as the current prefix
-    if (newPrefix === client.prefix())
+    if (newPrefix === await client.prefix())
       return client.send(
         message,
         "The new prefix is the same as the current prefix",
@@ -23,7 +23,7 @@ export const command: SelfCommandType = {
     if (newPrefix.length > 5)
       return client.send(message, "The new prefix is too long");
 
-    client.db.set("prefix", newPrefix);
+    await client.db.set("prefix", newPrefix);
     client.send(message, `Prefix set to ${newPrefix}`);
   },
 };

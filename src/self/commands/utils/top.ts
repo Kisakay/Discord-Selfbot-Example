@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
   name: "top",
   description: "Get the link of the first message in the channel",
   category: "utils",
-  callback: (client, message, args) => {
+  async callback(client, message, args) {
     let channel = message.channel;
     channel.messages.fetch({ after: "0", limit: 1 }).then((messages) => {
       let firstMessage = messages.first();

@@ -5,14 +5,14 @@ export const command: SelfCommandType = {
   name: "joinvc",
   description: "Join voice channel",
   category: "gestion",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let channel =
       message.mentions.channels.first() ||
       client?.channels.cache.get(args[0]) ||
       args[0];
 
     if (channel === "delete") {
-      client.db.delete("joinvc");
+      await client.db.delete("joinvc");
       client.send(message, {
         content: `✅ Voice channel deleted`,
       });
@@ -32,7 +32,7 @@ export const command: SelfCommandType = {
       return;
     }
 
-    client.db.set("joinvc", channel.id);
+    await client.db.set("joinvc", channel.id);
 
     client.send(message, {
       content: `✅ Voice channel set to **${channel.name}**`,

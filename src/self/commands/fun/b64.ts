@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
   name: "b64",
   description: "Encode/Decode base64",
   category: "fun",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let option = args[0];
     let text = args.slice(1).join(" ");
 

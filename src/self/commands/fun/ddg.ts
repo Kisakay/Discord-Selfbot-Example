@@ -3,7 +3,7 @@ export const command: SelfCommandType = {
   name: "ddg",
   description: "Make a DuckDuckGo search",
   category: "fun",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let query = args.join(" ");
 
     client.send(message, {

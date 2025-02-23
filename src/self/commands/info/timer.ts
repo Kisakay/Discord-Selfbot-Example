@@ -7,7 +7,7 @@ export const command: SelfCommandType = {
     name: "timer",
     description: "Create a timer",
     category: "utils",
-    callback: (client, message, args) => {
+    async callback(client, message, args) {
         if (!args[0]) {
             client.send(message, {
                 content: "Please provide a time!",

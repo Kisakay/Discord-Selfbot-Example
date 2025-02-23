@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
   description: "Make a Google search",
   category: "fun",
   aliases: ["google"],
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let query = args.join(" ");
 
     client.send(message, {

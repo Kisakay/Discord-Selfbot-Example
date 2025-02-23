@@ -4,8 +4,8 @@ export const command: SelfCommandType = {
   name: "config",
   description: "Get all the config data",
   category: "gestion",
-  callback: (client, message, args) => {
-    const config_data = client.db.all();
+  async callback(client, message, args) {
+    const config_data = await client.db.all();
     const lowercaseConfigs = config_data.filter(
       (item) => item.id === item.id.toLowerCase(),
     );

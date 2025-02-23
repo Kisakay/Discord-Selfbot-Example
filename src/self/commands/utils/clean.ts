@@ -52,7 +52,7 @@ export const command: SelfCommandType = {
   name: "clean",
   description: "Clear all messages in a channel",
   category: "utils",
-  callback: (client, message, args) => {
+  async callback(client, message, args) {
     client.send(message, {
       content: "200",
     }, 400);

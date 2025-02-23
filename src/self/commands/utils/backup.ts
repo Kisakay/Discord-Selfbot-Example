@@ -25,7 +25,7 @@ export const command: SelfCommandType = {
   name: "backup",
   description: "Create a backup of your account",
   category: "utils",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let option = args[0];
 
     // console.log(client.relationships.)

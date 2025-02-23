@@ -5,7 +5,7 @@ import { updatePresenceLoop } from "../func/ihorizon_owner_status";
 export const event: SelfEventType = {
   once: true,
   name: "ready",
-  callback: async (client: Self) => {
+  async callback(client: Self) {
     client.logger.log(`Logged in as ${client.user!.tag}`);
     client.logger.legacy(
       `    __ __ _            __              _          _____      ________          __
@@ -20,7 +20,7 @@ export const event: SelfEventType = {
 
     await updatePresenceLoop(client);
 
-    let joinvc = client.db.get("joinvc");
+    let joinvc = await client.db.get("joinvc");
 
     if (joinvc) {
       let channel = client.channels.cache.get(joinvc);

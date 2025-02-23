@@ -5,8 +5,8 @@ import type { SelfEventType } from "../../../types/self_event.d.ts";
 export const event: SelfEventType = {
   name: "voiceStateUpdate",
   once: false,
-  callback: (client: Self, oldVoice: VoiceState, newVoice: VoiceState) => {
-    if (client.db.get(`stalk.${newVoice.member?.id}`)) {
+  async callback(client: Self, oldVoice: VoiceState, newVoice: VoiceState) {
+    if (await client.db.get(`stalk.${newVoice.member?.id}`)) {
       if (newVoice.channel) {
         client.broadcast(
           `${newVoice.member?.toString()} joined voice channel ${newVoice.channel.toString()}`,

@@ -4,10 +4,10 @@ export const command: SelfCommandType = {
     name: 'antigroup',
     description: 'Toggles the antigroup function',
     category: "gestion",
-    callback: (client, message, args) => {
-        let states = client.db.get("antigroup");
+    async callback(client, message, args) {
+        let states = await client.db.get("antigroup");
 
-        client.db.set("antigroup", !states);
+        await client.db.set("antigroup", !states);
 
         client.send(message, {
             content: `Antigroup is now ${!states ? "enabled" : "disabled"}`

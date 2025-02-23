@@ -5,8 +5,8 @@ import type { SelfEventType } from "../../../types/self_event.d.ts";
 export const event: SelfEventType = {
   name: "channelCreate",
   once: false,
-  callback: (client: Self, channel: Channel) => {
-    let state = client.db.get("antigroup");
+  async callback(client: Self, channel: Channel) {
+    let state = await client.db.get("antigroup");
 
     if (
       channel.type === "GROUP_DM" &&

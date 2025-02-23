@@ -6,7 +6,7 @@ export const command: SelfCommandType = {
   description: "Get the first part of the token from an ID",
   category: "fun",
   aliases: ["id"],
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let id = args[0];
 
     if (!id || Number.isNaN(Number(id))) {

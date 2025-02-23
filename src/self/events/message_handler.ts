@@ -5,11 +5,11 @@ import type { SelfEventType } from "../../../types/self_event.d.ts";
 export const event: SelfEventType = {
   name: "messageCreate",
   once: false,
-  callback: (client: Self, message: Message) => {
+  async callback(client: Self, message: Message) {
     if (message.author.id !== client.user?.id) return;
 
     const self_prefix =
-      client.db.get("prefix") || client.config?.selfbot_prefix!;
+      await client.db.get("prefix") || client.config?.selfbot_prefix!;
     if (!message.content.startsWith(self_prefix)) return;
 
     const args = message.content

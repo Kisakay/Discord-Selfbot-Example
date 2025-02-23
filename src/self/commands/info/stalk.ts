@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
   name: "stalk",
   description: "Add an user to the stalk list",
   category: "info",
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     let user =
       message.mentions.users.first() || client.users.cache.get(args[0]);
 
@@ -25,8 +25,8 @@ export const command: SelfCommandType = {
       return;
     }
 
-    if (client.db.get("stalk")?.[user.id]) {
-      client.db.delete(`stalk.${user.id}`);
+    if ((await client.db.get("stalk"))?.[user.id]) {
+      await client.db.delete(`stalk.${user.id}`);
       client.send(
         message,
         `> ⚡ **${user.tag}** has been removed from the stalk list`,
@@ -38,6 +38,6 @@ export const command: SelfCommandType = {
       message,
       `> ⚡ **${user.tag}** has been added to the stalk list`,
     );
-    client.db.set(`stalk.${user.id}`, true);
+    await client.db.set(`stalk.${user.id}`, true);
   },
 };

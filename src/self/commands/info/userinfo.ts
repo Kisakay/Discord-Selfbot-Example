@@ -4,7 +4,7 @@ export const command: SelfCommandType = {
     name: 'userinfo',
     description: 'Shows the user information',
     category: "info",
-    callback: async (client, message, args) => {
+    async callback(client, message, args) {
         let user = message.mentions.users.first() || client.users.cache.get(args[0]);
 
         if (!user && args[0]) {

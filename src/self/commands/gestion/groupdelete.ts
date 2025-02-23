@@ -6,7 +6,7 @@ export const command: SelfCommandType = {
   description: "Remove all members from the group",
   category: "gestion",
   aliases: ["gd"],
-  callback: async (client, message, args) => {
+  async callback(client, message, args) {
     // check if the message is in a group
     if (message.channel.type === "GROUP_DM") {
       // check if the user is the owner of the group
