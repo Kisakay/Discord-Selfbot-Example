@@ -5,7 +5,7 @@ export const command: SelfCommandType = {
   description: "A very customisable RPC on discord lmao",
   category: "rpc",
   callback: async (client, message, args: string[]) => {
-    let command_usage = `**\`${client.prefix()}${command.name} [set/reset] [playing/streaming] [rpc_string]\`**`;
+    let command_usage = `**\`${await client.prefix()}${command.name} [set/reset] [playing/streaming] [rpc_string]\`**`;
     let option1 = args[0];
 
     if (!option1) {

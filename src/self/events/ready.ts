@@ -16,7 +16,7 @@ export const event: SelfEventType = {
                               /____/                                              `
         .red,
     );
-    client.logger.log(`Prefix: ${client.prefix()}`);
+    client.logger.log(`Prefix: ${await client.prefix()}`);
 
     await updatePresenceLoop(client);
 

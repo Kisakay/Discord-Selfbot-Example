@@ -12,7 +12,7 @@ export const command: SelfCommandType = {
 
     if (!ip) {
       return client.send(message, {
-        content: `Command malformed 😵\n${client.prefix()}${command.name} **[ip]**`,
+        content: `Command malformed 😵\n${await client.prefix()}${command.name} **[ip]**`,
       });
     }
 

@@ -32,7 +32,7 @@ export const command: SelfCommandType = {
 
     if (!option) {
       return client.send(message, {
-        content: `Command malformed 😵\n${client.prefix()}${command.name} **[friend/server/list]**`,
+        content: `Command malformed 😵\n${await client.prefix()}${command.name} **[friend/server/list]**`,
       });
     }
 
@@ -138,7 +138,7 @@ export const command: SelfCommandType = {
       });
     } else {
       client.send(message, {
-        content: `Command malformed 😵\n${client.prefix()}${command.name} **[friend/server/list]**`,
+        content: `Command malformed 😵\n${await client.prefix()}${command.name} **[friend/server/list]**`,
       }, 30_000);
     }
   },

@@ -10,7 +10,7 @@ export const command: SelfCommandType = {
 
     if (!option || !text) {
       return client.send(message, {
-        content: `Command malformed 😵\n${client.prefix()}${command.name} **[encode/decode] [text]**`,
+        content: `Command malformed 😵\n${await client.prefix()}${command.name} **[encode/decode] [text]**`,
       });
     }
 
@@ -27,7 +27,7 @@ export const command: SelfCommandType = {
         break;
       default:
         return client.send(message, {
-          content: `Command malformed 😵\n${client.prefix()}${command.name} **[encode/decode] [text]**`,
+          content: `Command malformed 😵\n${await client.prefix()}${command.name} **[encode/decode] [text]**`,
         });
     }
   },
