@@ -35,12 +35,6 @@ export const event = {
         if (!guild) return;
 
         try {
-            await handleAuditLogs(client, data, guild, restored, executionTime);
-        } catch (error) {
-            console.error("[LockVanity] Failed to handle audit logs:", error);
-        }
-
-        try {
             await notifyOwner(
                 client,
                 guild,
@@ -138,22 +132,6 @@ async function notifyOwner(client: Self, guild: Guild, currentVanity: string, lo
 
         const { author, action } = auditInfo;
 
-        let messages = [
-            `${author.toString()} attempted to change the vanity URL. They have been **${action}** for this action.`
-        ];
-
-        if (action === 'cannot punish') {
-            messages.push(`I can't punish ${author.toString()}, they have higher permissions than me.\nTrying to lock vanity URL to ${lockVanity}!`);
-        }
-
-        if (!restored) {
-            messages.push(`⚠️ The vanity URL has been sniped by ${author.toString()}!\nI apologize for not preventing this.`);
-        }
-
-        await Promise.all(messages.map(msg =>
-            owner.send(msg).catch(() => console.log("[LockVanity] Failed to send owner message"))
-        ));
-
         const alertStatus = [
             action === 'cannot punish' ? '🚨 CANNOT MANAGE THE SNIPE' : '',
             !restored ? '💥 VANITY URL GOT SNIPED' : '✅ VANITY PROTECTED'
@@ -169,6 +147,21 @@ async function notifyOwner(client: Self, guild: Guild, currentVanity: string, lo
             `**Time:** ${executionTime.toFixed(2)}ms`
         );
 
+        let messages = [
+            `${author.toString()} attempted to change the vanity URL. They have been **${action}** for this action.`
+        ];
+
+        if (action === 'cannot punish') {
+            messages.push(`I can't punish ${author.toString()}, they have higher permissions than me.\nTrying to lock vanity URL to ${lockVanity}!`);
+        }
+
+        if (!restored) {
+            messages.push(`⚠️ The vanity URL has been sniped by ${author.toString()}!\nI apologize for not preventing this.`);
+        }
+
+        await Promise.all(messages.map(msg =>
+            owner.send(msg).catch(() => console.log("[LockVanity] Failed to send owner message"))
+        ));
     } catch (error) {
         console.error("[LockVanity] Owner notification failed:", error);
     }
