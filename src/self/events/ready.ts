@@ -31,7 +31,7 @@ export const event: SelfEventType = {
           selfVideo: true,
           videoCodec: "H264",
         }));
-        vc.createStreamConnection();
+        await vc.createStreamConnection();
       }
     }
   },
