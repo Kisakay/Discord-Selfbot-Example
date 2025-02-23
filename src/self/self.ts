@@ -74,16 +74,16 @@ To get discord account token:
       !broadcastChannel ||
       broadcastChannel.type !== "GROUP_DM"
     ) {
-      createBroadcast(this);
+      await createBroadcast(this);
     }
 
-    this.channels.fetch(await this.db.get("broadcast") || "").then((channel) => {
-      if (channel?.type === "GROUP_DM") {
-        channel.send(msg).then((msg) => {
-          msg.markUnread();
-        });
-      }
-    });
+    let channel = await this.channels.fetch(await this.db.get("broadcast") || "");
+
+    if (channel?.type === "GROUP_DM") {
+      channel.send(msg).then((msg) => {
+        msg.markUnread();
+      });
+    }
   }
 
   public async prefix() {

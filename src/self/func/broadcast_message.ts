@@ -1,6 +1,6 @@
 import type { Self } from "../self";
 
-export function createBroadcast(client: Self) {
+export async function createBroadcast(client: Self) {
   // create a group dm
   client.channels.createGroupDM([]).then(async (group) => {
     await group.setName("KisakaySelf");
