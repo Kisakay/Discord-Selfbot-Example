@@ -31,7 +31,7 @@ export async function vanity_defender(client: Self) {
                         },
                     })
 
-                    client.mfaToken = getMfa.token;
+                    client.mfaToken[id] = getMfa.token;
 
                     logger.log(`[VanityDefender] MFA Token refreshed. (${(getMfa.token as string).substring(0, 20)}-------------XXXX)`.green);
                 } else {
