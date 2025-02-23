@@ -9,6 +9,8 @@ export const command: SelfCommandType = {
 
         if (option === "unlock") {
             await client.db.delete(`lockvanity.${message.guildId}`);
+
+            client.send(message, "Vanity URL has been unlocked");
         } else if (option === "lock") {
             if (!message.guild?.vanityURLCode) {
                 return client.send(message, "This server does not have a vanity URL.");
