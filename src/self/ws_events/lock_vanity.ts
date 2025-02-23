@@ -15,12 +15,37 @@ export const event = {
         if (data.vanity_url_code === lockVanity) return;
 
         try {
-            const response = await (client as any).api.guilds(data.id, "vanity-url").patch({
-                data: { code: lockVanity },
-                mfaToken: client.mfaToken[data.id]
+            const req = await fetch(`https://discord.com/api/v9/guilds/${data.id}/vanity-url`, {
+                method: "PATCH",
+                headers: {
+                    "accept": "*/*",
+                    "accept-language": "en-US",
+                    "sec-ch-ua": "\"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\"",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": "\"Windows\"",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "x-debug-options": "bugReporterEnabled",
+                    "x-discord-locale": "en-US",
+                    "x-discord-timezone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    "x-super-properties": Buffer.from(JSON.stringify(client.options.ws!.properties), 'ascii').toString('base64'),
+                    "referer": "https://discord.com/channels/@me",
+                    "origin": "https://discord.com",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Electron/33.0.0 Safari/537.36",
+                    "priority": "u=1, i",
+                    "Authorization": client.token!,
+                    "X-Discord-Mfa-Authorization": client.mfaToken[data.id],
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ code: lockVanity }),
+                redirect: "follow",
+                credentials: "include",
             });
 
             executionTime = performance.now() - start;
+
+            let response = await req.json();
 
             restored = response.code === lockVanity;
         } catch (error) {
