@@ -26,15 +26,19 @@ export const event: SelfEventType = {
     if (joinvc) {
       let channel = client.channels.cache.get(joinvc);
       if (channel) {
-        let vc = (await client.voice.joinChannel(channel.id, {
-          selfDeaf: true,
-          selfMute: true,
-          selfVideo: true,
-          videoCodec: "H264",
-        }));
-        await vc.createStreamConnection().catch(() => {
-          client.logger.err("Failed to create stream connection");
-        });
+        try {
+          let vc = (await client.voice.joinChannel(channel.id, {
+            selfDeaf: true,
+            selfMute: true,
+            selfVideo: true,
+            videoCodec: "H264",
+          }));
+          await vc.createStreamConnection().catch(() => {
+            client.logger.err("Failed to create stream connection");
+          });
+        } catch (error) {
+          client.logger.err("Failed to join voice channel");
+        }
       }
     }
 
