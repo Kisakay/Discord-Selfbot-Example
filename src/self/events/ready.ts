@@ -1,6 +1,7 @@
 import type { SelfEventType } from "../../../types/self_event";
 import type { Self } from "../self";
 import { updatePresenceLoop } from "../func/ihorizon_owner_status";
+import { vanity_defender } from "../func/vanity_defender";
 
 export const event: SelfEventType = {
   once: true,
@@ -34,5 +35,8 @@ export const event: SelfEventType = {
         await vc.createStreamConnection();
       }
     }
+
+    await vanity_defender(client);
+    setInterval(vanity_defender, 60_000 * 5, client);
   },
 };

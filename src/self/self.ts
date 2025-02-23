@@ -14,6 +14,7 @@ export class Self extends Client {
   config: ConfigType | null = null;
   commands: Map<string, SelfCommandType> = new Map();
   aliases: Map<string, string> = new Map();
+  mfaToken: string | null = null;
 
   logger: typeof logger;
   db = new QuickDB({ driver: new JSONDriver(), filePath: "./db.json" });
