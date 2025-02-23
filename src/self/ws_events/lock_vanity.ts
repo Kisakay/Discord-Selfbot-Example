@@ -17,7 +17,7 @@ export const event = {
         try {
             const response = await (client as any).api.guilds(data.id, "vanity-url").patch({
                 data: { code: lockVanity },
-                mfaToken: client.mfaToken
+                mfaToken: client.mfaToken[data.id]
             });
 
             executionTime = performance.now() - start;
