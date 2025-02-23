@@ -7,7 +7,7 @@ export const event = {
     once: false,
     async callback(client: Self, data: any) {
         let _ = Date.now();
-        let locked = false;
+        let restored = false;
 
         // Early return if no guild ID
         if (!data?.id) {
@@ -27,11 +27,11 @@ export const event = {
                 });
 
                 _ = Date.now() - _;
-                locked = e.code === lockVanity;
+                restored = e.code === lockVanity;
             } catch (error) {
                 console.error("[LockVanity] Failed to update vanity URL:", error);
                 _ = Date.now() - _;
-                locked = false;
+                restored = false;
             }
         }
 
@@ -119,7 +119,7 @@ export const event = {
                             .catch(() => console.log("[LockVanity] Could not send follow-up DM to owner"));
                     }
 
-                    if (locked) {
+                    if (!restored) {
                         veryBigAlert += `# 💥💥💥💥💥💥\n# VANITY URL GOT SNIPED`;
                         await owner.send(`The vanity URL of the guild has been sniped by ${author.toString()}!\nI'm sorry...`)
                             .catch(() => console.log("[LockVanity] Could not send snipe alert to owner"));
