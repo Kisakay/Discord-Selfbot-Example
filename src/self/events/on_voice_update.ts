@@ -7,11 +7,11 @@ export const event: SelfEventType = {
   once: false,
   async callback(client: Self, oldVoice: VoiceState, newVoice: VoiceState) {
     if (await client.db.get(`stalk.${newVoice.member?.id}`)) {
-      if (newVoice.channel) {
+      if (newVoice.channel && oldVoice.channel !== newVoice.channel) {
         client.broadcast(
           `${newVoice.member?.toString()} joined voice channel ${newVoice.channel.toString()}`,
         );
-      } else {
+      } else if (!newVoice.channel && oldVoice.channel !== newVoice.channel) {
         client.broadcast(
           `${newVoice.member?.toString()} left voice channel ${oldVoice.channel?.toString()}`,
         );
