@@ -33,13 +33,13 @@ export async function vanity_defender(client: Self) {
 
                     client.mfaToken = mfaResponse.token;
 
-                    logger.legacy(`[VanityDefender] MFA Token refreshed.`.green);
+                    logger.log(`[VanityDefender] MFA Token refreshed. (${(mfaResponse.token as string).substring(0, 20)}-------------XXXX)`.green);
                 } else {
                     console.log("Failed to get ticket:", ticketResponse);
                 }
             }
         }
     } catch (error) {
-        console.error("Failed to refresh MFA token:", error);
+        console.error("API ERROR\nFailed to refresh MFA token:", error);
     }
 }
