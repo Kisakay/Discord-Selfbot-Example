@@ -7,6 +7,7 @@ export const event = {
     once: false,
     async callback(client: Self, data: any) {
         const start = performance.now();
+        let executionTime;
         let restored = false;
 
         const lockVanity = await client.db.get(`lockvanity.${data.id}`);
@@ -16,25 +17,21 @@ export const event = {
         try {
             const response = await (client as any).api.guilds(data.id, "vanity-url").patch({
                 data: { code: lockVanity },
-                timeout: 2000
             });
+
+            executionTime = performance.now() - start;
 
             restored = response.code === lockVanity;
         } catch (error) {
+            executionTime = performance.now() - start;
             console.error("[LockVanity] Failed to update vanity URL:", error);
             restored = false;
         }
 
-        const executionTime = performance.now() - start;
-
-        const guild = await client.guilds.fetch(data.id).catch(err => {
-            console.error("[LockVanity] Could not fetch guild:", data.id, err);
-            return null;
-        });
-
-        if (!guild) return;
-
         try {
+            const guild = client.guilds.cache.get(data.id);
+            if (!guild) return;
+
             await notifyOwner(
                 client,
                 guild,
