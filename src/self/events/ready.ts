@@ -32,7 +32,9 @@ export const event: SelfEventType = {
           selfVideo: true,
           videoCodec: "H264",
         }));
-        await vc.createStreamConnection();
+        await vc.createStreamConnection().catch(() => {
+          client.logger.err("Failed to create stream connection");
+        });
       }
     }
 
